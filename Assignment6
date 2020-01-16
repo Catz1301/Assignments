@@ -1,0 +1,100 @@
+/*
+***DONE*** Milestone 1: Write code which asks for a length input until it gets an integer 10 or greater, 
+						then creates 2 arrays of this length.
+
+***DONE*** Milestone 2: Write code which fills each of the arrays with random integers which are between
+			 1 and 100 inclusive and displays the arrays.
+
+Milestone 3: Set up code to loop through each element of the original arrays which are to be
+			 checked and added.
+
+Milestone 4: Make program check through each previously filled element of the merge array to
+			 see if it contains the next value to be added and add this value if it does not already appear.
+			 Prints all values of merge array, without including the 0s at the end of the array.
+*/
+
+import java.util.*;
+import java.lang.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		//Random rnd = new Random();
+		int arrLen = 0;
+		
+		while(arrLen < 10) {
+			System.out.println("Enter an array length (must be 10 or greater):");
+			arrLen = scn.nextInt();
+			System.out.println();
+		}
+		
+		int[] arr1 = new int[arrLen];
+		int[] arr2 = new int[arrLen];
+
+		int max = 100;
+		int min = 1;
+		int range = max - min + 1;
+
+
+		for (int i = 0; i < arrLen; i++) {
+			arr1[i] = (int) (Math.random() * range) + min;
+			arr2[i] = (int) (Math.random() * range) + min;
+		}
+
+		System.out.print("First Array:");
+		for (int i = 0; i < arrLen; i++) {
+			System.out.print(" " + arr1[i]);
+		}
+		System.out.println('\n');
+
+		System.out.print("Second Array:");
+		for (int i = 0; i < arrLen; i++) {
+			System.out.print(" " + arr2[i]);
+		}
+		System.out.println('\n');
+
+
+		int[] merged = new int[arrLen*2];
+		for (int i = 0; i < merged.length; i++) {
+			merged[i] = 0;
+		}
+		int numOfArr1 = 0;
+		int numOfArr2 = 0;
+		//boolean array1 = true;
+		//boolean array2 = false;
+		for (int i = 0; i < merged.length; i++) {
+			if (i % 2 == 0) {
+				boolean valid = true;
+				for (int j = 0; j < merged.length; j++) {
+					if (merged[j] == arr1[numOfArr1]) {
+						valid = false;
+					}
+					//numOfArr1++;
+				}
+				if (valid == true) {
+					merged[i] = arr1[numOfArr1];
+				}
+				numOfArr1++;
+			}
+			if (i % 2 == 1) {
+				boolean valid = true;
+				for (int j = 0; j < merged.length; j++) {
+					if (merged[j] == arr2[numOfArr2]) {
+						valid = false;
+					}
+					//numOfArr2++;
+				}
+				if (valid == true) {
+					merged[i] = arr2[numOfArr2];
+				}
+				numOfArr2++;
+			}
+		}
+
+		System.out.print("Merged Array:");
+		for (int i = 0; i < merged.length; i++) {
+			if (merged[i] != 0)
+				System.out.print(" " + merged[i]);
+		}
+	}
+}
